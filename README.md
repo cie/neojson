@@ -58,12 +58,32 @@ export default {
 
 ```javascript
 import { parse, stringify } from "neojson";
-console.log(stringify({ date: new Date("2022-12-27") }));
-console.log(
-  parse("import Error from 'error'; export default new Error('oops')", {
-    imports: { error: { Error } },
-  })
-);
+
+class Person {
+  constructor({ name, age }) {
+    this.name = name;
+    this.age = age;
+  }
+  toNeoJSON() {
+    const { name, age } = this;
+    return [{ name, age }]; // the constructor arguments
+  }
+}
+
+// imports per file path
+const imports = { ".": { Person } };
+
+const person = new Person({ name: "Joe", age: 42 });
+const str = stringify(person, { imports });
+console.log(str);
+console.log(parse(str, { imports }));
+```
+
+The generated neoJSON string is:
+
+```javascript
+import { Person } from ".";
+export default new Person({ name: "Joe", age: 42 });
 ```
 
 ## Is it safe?
