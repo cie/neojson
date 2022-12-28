@@ -1,6 +1,6 @@
 {
   "name": "neojson",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "JSON with new expressions",
   "repository": {
     "type": "git",
