@@ -1,11 +1,18 @@
 {
-  "name": "json++",
+  "name": "neojson",
   "version": "0.0.0",
-  "description": "JSON5 with NewExpressions",
-  "main": "lib",
+  "description": "JSON with new expressions",
+  "main": "lib/index",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/types": "^7.20.7",
+    "tap": "^16.3.2"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.20.7"
+  }
 }
