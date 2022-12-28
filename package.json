@@ -2,6 +2,10 @@
   "name": "neojson",
   "version": "0.0.0",
   "description": "JSON with new expressions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cie/neojson.git"
+  },
   "main": "lib/index",
   "scripts": {
     "test": "tap"
