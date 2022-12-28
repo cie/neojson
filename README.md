@@ -4,24 +4,25 @@ A data exchange & config format, a subset of ES2017, fully supporting JSON and J
 
 ```javascript
 // person.neojson.js
-export default {
+import { Person } from ".";
+export default new Person({
   name: "John Doe",
   birthDate: new Date("1990-12-27"),
   roles: new Set(["admin", "moderator"]),
-};
+});
 ```
 
 ## Why?
 
+- You can statically typecheck your config files with TypeScript/Flow (by inferring the constructors' argument types).
 - You can serialize and deserialize your own class instances.
 - You can use Dates, RegExps, Sets and Maps.
-- You can statically typecheck your config files with TypeScript/Flow (by inferring the constructors' argument types).
 
 ## Definition
 
 Take JSON. Add comments, single quotes, unquoted keys, trailing commas and escaped newlines. That's roughly JSON5. Add `new` expressions, wrap it in an `export default` statement, and add the necessary `import` statements. That's neoJSON.
 
-In a JSON++ file, the expression is wrapped in `export default`:
+In a neoJSON file, the entire expression must be wrapped in `export default`:
 
 ```javascript
 export default {
@@ -29,21 +30,18 @@ export default {
 };
 ```
 
-You can use `new` expressions for these global classes:
+You can use `new` expressions for some global classes:
 
 ```javascript
 export default {
   date: new Date("2022-12-27"),
   regexp: new RegExp("\\s+"),
   set: new Set(["admin", "moderator"]),
-  map: new Map([
-    [1, 2],
-    [2, 4],
-  ]),
+  map: new Map([[1, 2]]),
 };
 ```
 
-You can use your own classes:
+and you can use your own classes:
 
 ```javascript
 import MyClass from "./my-class.js";
@@ -85,6 +83,20 @@ The generated neoJSON string is:
 import { Person } from ".";
 export default new Person({ name: "Joe", age: 42 });
 ```
+
+## API
+
+### `parse(str, options)`
+
+Parses a neoJSON string and returns the value. `options` is an object with the following properties:
+
+- `imports` (optional): an object mapping file paths to objects containing the constructors to use for `new` expressions. The default is `{}`.
+
+### `stringify(value, options)`
+
+Stringifies a value to a neoJSON string. `options` is an object with the following properties:
+
+- `imports` (optional): an object mapping file paths to objects containing the constructors to use for `new` expressions. The default is `{}`.
 
 ## Is it safe?
 
