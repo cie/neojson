@@ -105,8 +105,8 @@ t.test("parse", (t) => {
       /Unexpected ObjectMethod at 1:17/
     );
     t.throws(
-      () => parse("const x = 4; export default [x]"),
-      /Unexpected VariableDeclaration at 1:1/
+      () => parse("let x = 4; export default [x]"),
+      /Unexpected let declaration at 1:1/
     );
     t.throws(
       () => parse("export default new S; import S from 'foo'"),

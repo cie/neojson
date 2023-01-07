@@ -20,18 +20,21 @@ t.test("round-trip", (t) => {
       return [{ ...this }];
     }
   }
+  const imports = {
+    foo: {
+      default: S,
+      G,
+    },
+  };
   function roundTrip(input) {
-    const imports = {
-      foo: {
-        default: S,
-        G,
-      },
-    };
     t.strictSame(
       parse(stringify(input, { imports }), { imports }),
       input,
       stringify(input, { imports })
     );
+  }
+  function xroundTrip(input) {
+    throw stringify(input, { imports });
   }
   roundTrip(null);
   roundTrip(true);
